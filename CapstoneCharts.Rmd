@@ -1,0 +1,41 @@
+---
+title: "Capstone Charts"
+author: "Ryan Fortney"
+date: "April 27, 2017"
+output: pdf_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+library(tidyr)
+```
+
+```{r loaddata, include=FALSE}
+
+library(readxl)
+Sprayer_Data_Master_test <- read_excel("C:/Users/onetr/Box Sync/Sprayer Data Master_test.xlsx")
+
+```
+
+#Vehicle Model
+```{r modelsdata, echo=FALSE}
+models <- Sprayer_Data_Master_test %>%
+  select(MODEL,CLASS)
+
+modelssummary <- models %>%
+  group_by(MODEL,CLASS) %>%
+  summarise(tally = n())
+
+```
+```{r vehmodprint, echo=FALSE}
+
+widemodelsumm <- modelssummary %>% spread(CLASS,tally)
+```
+## Including Plots
+
+

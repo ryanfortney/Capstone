@@ -13,9 +13,10 @@ library(dplyr)
 library(ggplot2)
 library(stringr)
 library(tidyr)
+library(knitr)
 ```
 
-```{r loaddata, include=FALSE}
+```{r loaddata}
 
 library(readxl)
 Sprayer_Data_Master_test <- read_excel("C:/Users/onetr/Box Sync/Sprayer Data Master_test.xlsx")
@@ -38,4 +39,10 @@ widemodelsumm <- modelssummary %>% spread(CLASS,tally)
 ```
 ## Including Plots
 
+```{r vehmodplot, echo=FALSE}
+modelssummary %>% 
+  ggplot(aes(x=MODEL,y=tally, fill=CLASS)) +
+  geom_bar(stat = "identity")
 
+kable(widemodelsumm)
+```

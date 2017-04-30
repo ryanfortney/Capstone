@@ -19,7 +19,9 @@ library(knitr)
 ```{r loaddata}
 
 library(readxl)
-Sprayer_Data_Master_test <- read_excel("C:/Users/onetr/Box Sync/Sprayer Data Master_test.xlsx")
+Sprayer_Data_Master_test <- read_excel("~/Box Sync/Sprayer Data Master_test.xlsx")
+
+Sprayer_Data_Master_test$ENGINE_SIZE <- as.character(Sprayer_Data_Master_test$ENGINE_SIZE)
 
 ```
 
@@ -31,10 +33,6 @@ models <- Sprayer_Data_Master_test %>%
 modelssummary <- models %>%
   group_by(MODEL,CLASS) %>%
   summarise(tally = n())
-
-```
-```{r vehmodprint, echo=FALSE}
-
 widemodelsumm <- modelssummary %>% spread(CLASS,tally)
 ```
 ## Including Plots
@@ -42,7 +40,186 @@ widemodelsumm <- modelssummary %>% spread(CLASS,tally)
 ```{r vehmodplot, echo=FALSE}
 modelssummary %>% 
   ggplot(aes(x=MODEL,y=tally, fill=CLASS)) +
-  geom_bar(stat = "identity")
+  geom_bar(stat = "identity") +
+  ggtitle("Vehicle Model vs. Class Variable") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(name = "Vehicle Model") +
+  scale_y_continuous(name = "Number of Good/Neutral Cases")
+
+kable(widemodelsumm)
+```
+
+#ENGINE SIZE
+```{r modelsdata2, echo=FALSE}
+models <- Sprayer_Data_Master_test %>%
+  select(ENGINE_SIZE,CLASS)
+
+modelssummary <- models %>%
+  group_by(ENGINE_SIZE,CLASS) %>%
+  summarise(tally = n())
+widemodelsumm <- modelssummary %>% spread(CLASS,tally)
+```
+## Including Plots
+
+```{r vehmodplot2, echo=FALSE}
+
+modelssummary %>% 
+  ggplot(aes(x=ENGINE_SIZE,y=tally, fill=CLASS)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Engine Cylinder and Displacement vs. Class Variable") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(name = "Engine Cylinder and Displacement") +
+  scale_y_continuous(name = "Number of Good/Neutral Cases") 
+
+
+kable(widemodelsumm)
+```
+
+#ENGINE MODEL
+
+```{r modelsdata3, echo=FALSE}
+models <- Sprayer_Data_Master_test %>%
+  select(ENGINE_MODEL,CLASS)
+
+modelssummary <- models %>%
+  group_by(ENGINE_MODEL,CLASS) %>%
+  summarise(tally = n())
+widemodelsumm <- modelssummary %>% spread(CLASS,tally)
+```
+## Including Plots
+
+```{r vehmodplot3, echo=FALSE}
+modelssummary %>% 
+  ggplot(aes(x=ENGINE_MODEL,y=tally, fill=CLASS)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Engine Model vs. Class Variable") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(name = "Engine Model") +
+  scale_y_continuous(name = "Number of Good/Neutral Cases") +
+  theme(axis.text.x=element_text(angle=-45))
+
+kable(widemodelsumm)
+```
+
+#ENGINE GENERATION MODEL
+```{r modelsdata4, echo=FALSE}
+models <- Sprayer_Data_Master_test %>%
+  select(GEN,CLASS)
+
+modelssummary <- models %>%
+  group_by(GEN,CLASS) %>%
+  summarise(tally = n())
+widemodelsumm <- modelssummary %>% spread(CLASS,tally)
+```
+## Including Plots
+
+```{r vehmodplot4, echo=FALSE}
+modelssummary %>% 
+  ggplot(aes(x=GEN,y=tally, fill=CLASS)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Engine Generation vs. Class Variable") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(name = "Engine Generation") +
+  scale_y_continuous(name = "Number of Good/Neutral Cases")
+
+kable(widemodelsumm)
+```
+
+#ENGINE HARDWARE SET
+```{r modelsdata5, echo=FALSE}
+models <- Sprayer_Data_Master_test %>%
+  select(HW_SET,CLASS)
+
+modelssummary <- models %>%
+  group_by(HW_SET,CLASS) %>%
+  summarise(tally = n())
+widemodelsumm <- modelssummary %>% spread(CLASS,tally)
+```
+## Including Plots
+
+```{r vehmodplot5, echo=FALSE}
+modelssummary %>% 
+  ggplot(aes(x=HW_SET,y=tally, fill=CLASS)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Engine Hardware Set vs. Class Variable") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(name = "Engine Hardware Set") +
+  scale_y_continuous(name = "Number of Good/Neutral Cases")
+
+kable(widemodelsumm)
+```
+
+#ENGINE AFTERTREATMENT
+```{r modelsdata6, echo=FALSE}
+models <- Sprayer_Data_Master_test %>%
+  select(AT_SIZE,CLASS)
+
+modelssummary <- models %>%
+  group_by(AT_SIZE,CLASS) %>%
+  summarise(tally = n())
+widemodelsumm <- modelssummary %>% spread(CLASS,tally)
+```
+## Including Plots
+
+```{r vehmodplot6, echo=FALSE}
+
+modelssummary %>% 
+  ggplot(aes(x=AT_SIZE,y=tally, fill=CLASS)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Engine Aftertreatment Size vs. Class Variable") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(name = "Engine Aftertreatment Size") +
+  scale_y_continuous(name = "Number of Good/Neutral Cases")
+
+kable(widemodelsumm)
+```
+
+#ENGINE MFG YR
+```{r modelsdata7, echo=FALSE}
+models <- Sprayer_Data_Master_test %>%
+  select(MFG_YR,CLASS)
+
+modelssummary <- models %>%
+  group_by(MFG_YR,CLASS) %>%
+  summarise(tally = n())
+widemodelsumm <- modelssummary %>% spread(CLASS,tally)
+```
+## Including Plots
+
+```{r vehmodplot7, echo=FALSE}
+modelssummary %>% 
+  ggplot(aes(x=MFG_YR,y=tally, fill=CLASS)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Engine Manufacture Year vs. Class Variable") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(name = "Engine Manufacture Year") +
+  scale_y_continuous(name = "Number of Good/Neutral Cases")
+
+kable(widemodelsumm)
+```
+
+
+
+#ENGINE INJECTOR PART NUMBER
+```{r modelsdata10, echo=FALSE}
+models <- Sprayer_Data_Master_test %>%
+  select(INJ_1_PN,CLASS)
+
+modelssummary <- models %>%
+  group_by(INJ_1_PN,CLASS) %>%
+  summarise(tally = n())
+widemodelsumm <- modelssummary %>% spread(CLASS,tally)
+```
+## Including Plots
+
+```{r vehmodplot10, echo=FALSE}
+modelssummary %>% 
+  ggplot(aes(x=INJ_1_PN,y=tally, fill=CLASS)) +
+  geom_bar(stat = "identity") +
+  ggtitle("Fuel Injector Part Number vs. Class Variable") +
+  theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(name = "Fuel Injector Part Number") +
+  scale_y_continuous(name = "Number of Good/Neutral Cases")
 
 kable(widemodelsumm)
 ```
